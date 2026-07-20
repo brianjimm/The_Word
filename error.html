@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Not found — Scripture{% endblock %}
+
+{% block content %}
+<style>
+  .error-state {
+    text-align: center;
+    padding: 4rem 1rem;
+  }
+
+  .error-glyph {
+    font-family: 'Fraunces', serif;
+    font-size: 3rem;
+    color: var(--rubric-soft);
+    margin-bottom: 1rem;
+  }
+
+  .error-message {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+  }
+
+  .error-back {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    color: var(--rubric);
+    letter-spacing: 0.03em;
+  }
+
+  .error-back:hover { text-decoration: underline; }
+</style>
+
+<div class="error-state">
+  <div class="error-glyph">&#8258;</div>
+  <p class="error-message">{{ message }}</p>
+  <a class="error-back" href="/">&larr; Return to books</a>
+</div>
+{% endblock %}
