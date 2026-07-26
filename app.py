@@ -60,7 +60,7 @@ def home():
 def book_view(book_name):
     if book_name not in CHAPTER_COUNTS:
         abort(404)
-chapter_count = CHAPTER_COUNTS[book_name]
+    chapter_count = CHAPTER_COUNTS[book_name]
     return render_template(
         "book.html", book_name=book_name, chapter_count=chapter_count
     )
@@ -134,7 +134,8 @@ def api_passage():
     data = fetch_passage(reference)
     if data is None:
         return jsonify({"error": "Passage not found"}), 404
-    return jsonify(data)
+    
+return jsonify(data)
 
 
 @app.errorhandler(404)
@@ -145,3 +146,4 @@ def not_found(e):
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=True, host="0.0.0.0", port=port)
+
