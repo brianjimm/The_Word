@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}{{ t('title_suffix') }} — {{ t('tagline') }}{% endblock %}
+
+{% block content %}
+<style>
+  .testament-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--rubric);
+    margin: 2.2rem 0 0.9rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .intro {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: 0.3rem;
+  }
+
+  .testament-label:first-child { margin-top: 0.6rem; }
+
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.5rem 0.8rem;
+  }
+
+  .book-card {
+    font-family: 'Fraunces', serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+    padding: 0.55rem 0.2rem;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .book-card:hover {
+    color: var(--rubric);
+    border-bottom-color: var(--rubric-soft);
+  }
+
+  .book-card .chap-count {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.68rem;
+    color: var(--ink-soft);
+    margin-left: 0.3rem;
+  }
+</style>
+
+<p class="intro">{{ t('choose_book') }}</p>
+
+<div class="testament-label">{{ t('ot') }}</div>
+<div class="book-grid">
+  {% for name, chapters in books[:39] %}
+  <a class="book-card" href="/book/{{ name | urlencode }}">{{ book_label(name) }}<span class="chap-count">{{ chapters }}</span></a>
+  {% endfor %}
+</div>
+
+<div class="testament-label">{{ t('nt') }}</div>
+<div class="book-grid">
+  {% for name, chapters in books[39:] %}
+  <a class="book-card" href="/book/{{ name | urlencode }}">{{ book_label(name) }}<span class="chap-count">{{ chapters }}</span></a>
+  {% endfor %}
+</div>
+{% endblock %}
