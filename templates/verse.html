@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{ book_label(book_name) }} {{ chapter }}:{{ verse }} — {{ t('title_suffix') }}{% endblock %}
+
+{% block crumbs %}
+<nav class="crumbs"><a href="/">{{ t('books') }}</a> / <a href="/book/{{ book_name | urlencode }}">{{ book_label(book_name) }}</a> / <a href="/book/{{ book_name | urlencode }}/{{ chapter }}">{{ chapter }}</a> / {{ verse }}</nav>
+{% endblock %}
+
+{% block content %}
+<style>
+  .verse-card {
+    background: #fffdf8;
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--rubric);
+    border-radius: 3px;
+    padding: 2rem 1.8rem;
+    margin-top: 1.5rem;
+  }
+
+  .verse-ref {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rubric);
+    margin-bottom: 0.9rem;
+  }
+
+  .verse-body {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    line-height: 1.55;
+  }
+</style>
+
+<div class="verse-card">
+  <div class="verse-ref">{{ data.reference }}</div>
+  <div class="verse-body">{{ data.text.strip() }}</div>
+</div>
+{% endblock %} 
+
