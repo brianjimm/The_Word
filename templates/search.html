@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}{% if query %}"{{ query }}" — {{ t('search') }}{% else %}{{ t('search') }}{% endif %}{% endblock %}
+
+{% block crumbs %}
+<nav class="crumbs"><a href="/">{{ t('books') }}</a> / {{ t('search') }}</nav>
+{% endblock %}
+
+{% block content %}
+<style>
+  .search-heading {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+    margin: 1rem 0 1.2rem;
+  }
+
+  .result-ref {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rubric);
+    margin-bottom: 0.9rem;
+  }
+
+  .passage {
+    font-size: 1.15rem;
+  }
+
+  .verse-num {
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    font-size: 0.68rem;
+    color: var(--rubric);
+    vertical-align: super;
+    margin-right: 0.15rem;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--ink-soft);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+  }
+
+  .error-msg {
+    background: #fdf1ef;
+    border: 1px solid var(--rubric-soft);
+    border-radius: 3px;
+    padding: 1rem 1.2rem;
+    color: var(--rubric);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.88rem;
+  }
+
+  .examples {
+    margin-top: 1rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+
+  .examples a {
+    color: var(--rubric);
+    margin-right: 0.8rem;
+  }
+</style>
+
+{% if not query %}
+  <div class="empty-state">
+    {{ t('empty_search') }}
+    <div class="examples">
+      {{ t('try') }} {% for ex in lang_cfg.examples %}<a href="/search?q={{ ex | urlencode }}">{{ ex }}</a>{% endfor %}
+    </div>
+  </div>
+{% elif error %}
+  <p class="search-heading">{{ t('results_for', q=query) }}</p>
+  <div class="error-msg">{{ error }}</div>
+{% else %}
+  <p class="search-heading">{{ t('results_for', q=query) }}</p>
+  <div class="result-ref">{{ result.reference }}</div>
+  <div class="passage">
+    {% for v in result.verses %}<span><sup class="verse-num">{{ v.verse }}</sup>{{ v.text }}</span> {% endfor %}
+  </div>
+{% endif %}
+{% endblock %}
